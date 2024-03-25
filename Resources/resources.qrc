@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Resources">
+        <file>Images/3DBook.png</file>
+        <file>Fonts/Outfit-Bold.ttf</file>
+    </qresource>
+</RCC>
