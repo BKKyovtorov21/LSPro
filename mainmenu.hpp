@@ -1,10 +1,10 @@
-#ifndef MAINMENU_H
-#define MAINMENU_H
+#pragma once
 
 #include <QMainWindow>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QFontDatabase>
+
 class LogIn;
 
 QT_BEGIN_NAMESPACE
@@ -22,15 +22,13 @@ public:
     ~MainMenu();
 
 private slots:
-    void on_login_PB_clicked();
 
-    void on_register_PB_clicked();
-
+    void on_LogIn_PB_clicked();
 private:
     Ui::MainMenu *ui;
 
-    std::shared_ptr<LogIn> logIn;
 
     virtual void paintEvent(QPaintEvent*) override;
+
+    std::shared_ptr<LogIn> m_logIn;
 };
-#endif // MAINMENU_H
