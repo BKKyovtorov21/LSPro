@@ -1,7 +1,6 @@
 #include "login.hpp"
 #include "ui_login.h"
 #include "register.hpp"
-#include "databasemanager.hpp"
 #include "mainwindow.hpp"
 #include "requestaccess.hpp"
 
@@ -12,11 +11,6 @@ LogIn::LogIn(QWidget *parent)
     ui->setupUi(this);
     m_SHA256 = std::make_shared<SHA256>();
     m_register = std::make_shared<Register>();
-
-    if (!m_database) {
-        m_database = std::make_shared<DatabaseManager>();
-        m_database->OpenConnection();
-    }
 }
 
 LogIn::~LogIn()

@@ -39,7 +39,6 @@ private:
     std::shared_ptr<QComboBox> m_BirthYear;
     std::shared_ptr<SHA256> m_SHA256;
     std::shared_ptr<LogIn> m_login;
-
     int monthToNumber(QString& month);
 };
 

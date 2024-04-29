@@ -7,6 +7,10 @@ MainMenu::MainMenu(QWidget *parent)
 {
     ui->setupUi(this);
     m_logIn = std::make_shared<LogIn>();
+    if (!m_database) {
+        m_database = std::make_shared<DatabaseManager>();
+        m_database->OpenConnection();
+    }
 }
 
 MainMenu::~MainMenu()

@@ -4,7 +4,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QFontDatabase>
-
+#include <databasemanager.hpp>
 class LogIn;
 
 QT_BEGIN_NAMESPACE
@@ -31,4 +31,6 @@ private:
     virtual void paintEvent(QPaintEvent*) override;
 
     std::shared_ptr<LogIn> m_logIn;
+    std::shared_ptr<DatabaseManager> m_database;
+
 };
