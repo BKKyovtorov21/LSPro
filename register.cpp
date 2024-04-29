@@ -115,7 +115,7 @@ void Register::on_register_PB_clicked()
     qry.bindValue(":Date_Of_Birth", birth);
     qry.bindValue(":Password_Salt", salt);
     if (qry.exec()) {
-        QMessageBox::information(this, "Success", "Your registration to Insight has been successfull. \n\nRedirecting to the login page..");
+        QMessageBox::information(this, "Success", "Your registration to LMSPro has been successfull. \n\nRedirecting to the login page..");
         m_login = std::make_shared<LogIn>();
         this->hide();
         m_login->show();
