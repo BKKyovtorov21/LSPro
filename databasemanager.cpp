@@ -14,13 +14,18 @@ QSqlDatabase DatabaseManager::GetDatabase() {
 void DatabaseManager::OpenConnection() {
     // Read JSON data from file
     QByteArray val;
-    QFile file(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/auth.json"));
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        val = file.readAll();
-        file.close();
-    } else {
-        qDebug() << "Failed to open JSON file";
+    QFile fileWindows(QDir::toNativeSeparators("C:/Users/boyan/Desktop/LSPro/auth.json"));
+    QFile fileMac(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/auth.json"));
+
+    if (!fileWindows.exists()) {
+        qDebug() << "JSON file does not exist at path:" << fileWindows.fileName();
+    }
+    if (!fileWindows.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open JSON file at path:" << fileWindows.fileName();
         return;
+    } else {
+        val = fileWindows.readAll();
+        fileWindows.close();
     }
 
     // Parse JSON data
@@ -52,6 +57,7 @@ void DatabaseManager::OpenConnection() {
         qDebug() << m_db.lastError().text();
     }
 }
+
 
 void DatabaseManager::CloseConnection() {
     // Close the database connection
