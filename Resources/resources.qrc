@@ -1,5 +1,22 @@
 <RCC>
     <qresource prefix="/Resources">
         <file>Images/3DBook.png</file>
+        <file>Images/LMSPro-logo.png</file>
+        <file>Images/search.png</file>
+        <file>Images/Chevron Down.png</file>
+        <file>Images/girl.png</file>
+        <file>Images/books/companyofone.png</file>
+        <file>Images/books/howinnovationworks.png</file>
+        <file>Images/books/realhelpbook.png</file>
+        <file>Images/books/Rectangle 114.png</file>
+        <file>Images/books/thebeesbook.png</file>
+        <file>Images/books/thefactofabody.png</file>
+        <file>Images/books/theleanstartup.png</file>
+        <file>Images/books/theroom.png</file>
+        <file>Images/books/richdadpoor.png</file>
+        <file>Images/books/atomichabits.png</file>
+        <file>Images/halfWhiteStar.png</file>
+        <file>Images/whteStar.png</file>
+        <file>Images/Group 18.png</file>
     </qresource>
 </RCC>
