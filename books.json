@@ -1,0 +1,31 @@
+{
+  "The Psychology of Money":
+  {
+    "Author": "Morgan Housel",
+    "Title": "The Psychology of Money",
+    "Description": "The Psychology of Money is a collection of short stories exploring the strange ways people think about money. The author presents related biases, flaws, behaviors, and attitudes that affect one's financial outcomes and shows how one's psychology can work for and against them.",
+    "Rating": 4.0,
+    "filename": "thepsychologyofmoney",
+    "Genre": "Business & Personal Finance",
+    "Year": 2020,
+    "Date": "8 September",
+    "Language": "EN",
+    "Length": 153,
+    "trackID": "01"
+    
+  },
+  "How innovation works":
+  {
+    "Author": "Matt Ridley",
+    "Title": "How Innovation Works",
+    "Description": "How Innovation Works by Matt Ridley is a fascinating read that explores the history of innovation and dispels commonly held beliefs about how it happens. Ridley argues that innovation is a collaborative effort that arises from trial and error, and the ability to share and improve upon ideas.",
+    "Rating": 4.1,
+    "filename": "howinnovationworks",
+    "Genre": "Business & Personal Finance",
+    "Year": 2020,
+    "Date": "19 May",
+    "Language": "EN",
+    "Length": 250,
+    "trackID": "02"
+  }
+}
