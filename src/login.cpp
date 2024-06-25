@@ -79,7 +79,7 @@ void LogIn::on_logIn_PB_clicked()
             if(qry.exec())
             {
                 QMessageBox::information(this, "Login Successful", "Welcome to LMSPro! \n\nYou have successfully logged in.");
-                m_mainWindow = std::make_shared<MainWindow>();
+                m_mainWindow = std::make_shared<MainWindow>(username);
                 this->hide();
                 m_mainWindow->show();
             }
