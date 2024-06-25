@@ -8,7 +8,6 @@
         <file>Images/books/companyofone.png</file>
         <file>Images/books/howinnovationworks.png</file>
         <file>Images/books/realhelpbook.png</file>
-        <file>Images/books/Rectangle 114.png</file>
         <file>Images/books/thebeesbook.png</file>
         <file>Images/books/thefactofabody.png</file>
         <file>Images/books/theleanstartup.png</file>
@@ -18,5 +17,11 @@
         <file>Images/halfWhiteStar.png</file>
         <file>Images/whteStar.png</file>
         <file>Images/Group 18.png</file>
+        <file>Images/mastercard.png</file>
+        <file>Images/paypal.png</file>
+        <file>Images/visa.png</file>
+        <file>Images/icons/Home.png</file>
+        <file>Images/icons/Info.png</file>
+        <file>Images/books/thepsychologyofmoney.png</file>
     </qresource>
 </RCC>

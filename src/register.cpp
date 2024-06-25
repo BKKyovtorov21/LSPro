@@ -136,3 +136,9 @@ void Register::on_goBack_PB_clicked()
     m_login->show();
 }
 
+
+void Register::on_next_PB_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+

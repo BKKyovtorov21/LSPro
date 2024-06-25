@@ -17,15 +17,15 @@ void DatabaseManager::OpenConnection() {
     QFile fileWindows(QDir::toNativeSeparators("C:/Users/boyan/Desktop/LSPro/auth.json"));
     QFile fileMac(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/auth.json"));
 
-    if (!fileWindows.exists()) {
-        qDebug() << "JSON file does not exist at path:" << fileWindows.fileName();
+    if (!fileMac.exists()) {
+        qDebug() << "JSON file does not exist at path:" << fileMac.fileName();
     }
-    if (!fileWindows.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Failed to open JSON file at path:" << fileWindows.fileName();
+    if (!fileMac.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open JSON file at path:" << fileMac.fileName();
         return;
     } else {
-        val = fileWindows.readAll();
-        fileWindows.close();
+        val = fileMac.readAll();
+        fileMac.close();
     }
 
     // Parse JSON data

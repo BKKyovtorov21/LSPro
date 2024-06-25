@@ -31,6 +31,8 @@ private slots:
 
     void on_goBack_PB_clicked();
 
+    void on_next_PB_clicked();
+
 private:
     Ui::Register *ui;
 
