@@ -105,8 +105,29 @@ void Register::on_register_PB_clicked()
     QString birth = birthYear + "-" + QString::number(monthToNumber(birthMonth)) + "-" + birthDay;
     QSqlQuery qry;
 
-    qry.prepare("INSERT INTO users(`First Name`, `Last Name`, Username, Email, Password, `Date Of Birth`, `Password Salt`) "
-                "VALUES (:First_Name, :Last_Name, :Username, :Email, :Password, :Date_Of_Birth, :Password_Salt)");
+    QString userPrefix = "RDR"; // This should be set based on the user type (e.g., "RDR" for readers)
+
+    // Step 1: Get the highest userID with the specific prefix
+    qry.prepare("SELECT userID FROM users WHERE userID LIKE :prefix ORDER BY userID DESC LIMIT 1");
+    qry.bindValue(":prefix", userPrefix + "%");
+
+    if (!qry.exec()) {
+        qDebug() << qry.lastError();
+        return;
+    }
+
+    QString newUserID;
+    if (qry.next()) {
+        QString lastUserID = qry.value(0).toString();
+        QString lastUserIDNumPart = lastUserID.mid(userPrefix.length()); // Extract numeric part
+        int newUserIDNumPart = lastUserIDNumPart.toInt() + 1;
+        newUserID = userPrefix + QString::number(newUserIDNumPart);
+    } else {
+        newUserID = userPrefix + "1"; // Start with prefix and 1 if no existing ID is found
+    }
+
+    qry.prepare("INSERT INTO users(`First Name`, `Last Name`, Username, Email, Password, `Date Of Birth`, `Password Salt`, `userID`) "
+                "VALUES (:First_Name, :Last_Name, :Username, :Email, :Password, :Date_Of_Birth, :Password_Salt, :userID)");
     qry.bindValue(":First_Name", firstName);
     qry.bindValue(":Last_Name", lastName);
     qry.bindValue(":Username", username);
@@ -114,19 +135,20 @@ void Register::on_register_PB_clicked()
     qry.bindValue(":Password", hashedPassword);
     qry.bindValue(":Date_Of_Birth", birth);
     qry.bindValue(":Password_Salt", salt);
+    qry.bindValue(":userID", newUserID);
+
     if (qry.exec()) {
-        QMessageBox::information(this, "Success", "Your registration to LMSPro has been successfull. \n\nRedirecting to the login page..");
+        QMessageBox::information(this, "Success", "Your registration to LMSPro has been successful. \n\nRedirecting to the login page..");
         m_login = std::make_shared<LogIn>();
         this->hide();
         m_login->show();
-
     }
     else
     {
         qDebug() << qry.lastError();
     }
-
 }
+
 
 
 void Register::on_goBack_PB_clicked()

@@ -32,6 +32,10 @@ private slots:
 
     void on_home_PB_clicked();
 
+    void on_search_LE_2_returnPressed();
+
+    void on_borrowedBooks_PB_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -46,9 +50,17 @@ private:
     QString language;
     float length;
     float rating;
+    int copies;
+    QString status;
 
     QString m_username;
 
     void accountInit();
     void searchBook(QString info);
+    void showBorrowedBooks();
+    void returnBook();
+
+    QJsonObject openJSONDoc();
+
+    std::vector<QString> bookTitles;
 };

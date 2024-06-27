@@ -588,7 +588,7 @@ background-color:transparent;
        <string>Card Holder</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="firstName_LE_2">
+     <widget class="QLineEdit" name="cardHolder_LE">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -721,7 +721,7 @@ color:white;
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="firstName_LE_3">
+     <widget class="QLineEdit" name="cardNumber_LE">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -763,7 +763,7 @@ background-color:transparent;
        <string>Card Number</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="firstName_LE_4">
+     <widget class="QLineEdit" name="cardMonth_LE">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -785,7 +785,7 @@ color: rgb(103, 103, 103);
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="firstName_LE_5">
+     <widget class="QLineEdit" name="cardYear_LE">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -807,7 +807,7 @@ color: rgb(103, 103, 103);
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="firstName_LE_6">
+     <widget class="QLineEdit" name="cardCVC_LE">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -1024,7 +1024,7 @@ color:white;</string>
        </property>
       </widget>
      </widget>
-     <zorder>firstName_LE_2</zorder>
+     <zorder>cardHolder_LE</zorder>
      <zorder>register_PB</zorder>
      <zorder>registration_LA_2</zorder>
      <zorder>calendarIcon_LA_2</zorder>
@@ -1032,11 +1032,11 @@ color:white;</string>
      <zorder>label_4</zorder>
      <zorder>goBack_PB_2</zorder>
      <zorder>firstName_LA_2</zorder>
-     <zorder>firstName_LE_3</zorder>
+     <zorder>cardNumber_LE</zorder>
      <zorder>firstName_LA_3</zorder>
-     <zorder>firstName_LE_4</zorder>
-     <zorder>firstName_LE_5</zorder>
-     <zorder>firstName_LE_6</zorder>
+     <zorder>cardMonth_LE</zorder>
+     <zorder>cardYear_LE</zorder>
+     <zorder>cardCVC_LE</zorder>
      <zorder>firstName_LA_4</zorder>
      <zorder>firstName_LA_5</zorder>
      <zorder>firstName_LA_6</zorder>

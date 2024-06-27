@@ -10,6 +10,7 @@
 #include <QSql>
 #include <QSqlQuery>
 #include <QVBoxLayout>
+#include <QMessageBox>
 MainWindow::MainWindow(QString& username, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainWindow)
@@ -29,25 +30,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::getBookInfo(QString bookName)
 {
-    QByteArray val;
-    QFile fileWindows(QDir::toNativeSeparators("C:/Users/boyan/Desktop/LSPro/books.json"));
-    QFile fileMac(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/books.json"));
-
-    if (!fileMac.exists()) {
-        qDebug() << "JSON file does not exist at path:" << fileMac.fileName();
-        return;
-    }
-    if (!fileMac.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Failed to open JSON file at path:" << fileMac.fileName();
-        return;
-    } else {
-        val = fileMac.readAll();
-        fileMac.close();
-    }
-
-    // Parse JSON data
-    QJsonDocument document = QJsonDocument::fromJson(val);
-    QJsonObject object = document.object();
+    QJsonObject object = openJSONDoc();
     const auto settingsObject = object[bookName].toObject();
 
     // Extract database connection parameters from JSON
@@ -61,6 +44,8 @@ void MainWindow::getBookInfo(QString bookName)
     language = settingsObject["Language"].toString();
     length = settingsObject["Length"].toDouble();
     rating = settingsObject["Rating"].toDouble();
+    copies = settingsObject["Copies"].toInt();
+    status = settingsObject["Status"].toString();
 
     QString style = "image: url(:/Resources/Images/books/" + fileName + ".png);";
     ui->bookCoverInfo_LA->setStyleSheet(style);
@@ -89,10 +74,90 @@ void MainWindow::on_book1_PB_clicked()
 
 void MainWindow::on_readNow_PB_clicked()
 {
-    QString filePath = "/Users/boyankiovtorov/Desktop/LSPro/books/" + fileName +".epub";
-    QUrl url = QUrl::fromLocalFile(filePath);
-    QDesktopServices::openUrl(url);
+    if (copies == 0 && status == "Borrowed")
+    {
+        QMessageBox::information(this, "No more book copies", "All copies of this book are currently borrowed. \n \nPlease try again later");
+    }
+    else
+    {
+        QJsonObject object = openJSONDoc();
+        QJsonObject settingsObject = object[title].toObject(); // Non-const QJsonObject for modification
+
+        // Modify the JSON data
+        if (copies == 1)
+        {
+            settingsObject["Status"] = "Borrowed";
+        }
+        settingsObject["Copies"] = copies - 1;
+        object[title] = settingsObject;
+
+        // Write the updated JSON data back to the file
+        QByteArray val;
+
+        QJsonDocument document = QJsonDocument::fromJson(val);
+        document.setObject(object);
+        val = document.toJson(QJsonDocument::Indented);
+
+        QFile fileWindows(QDir::toNativeSeparators("C:/Users/boyan/Desktop/LSPro/books.json"));
+        QFile fileMac(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/books.json"));
+
+        QFile *file;
+#ifdef Q_OS_WIN
+        file = &fileWindows;
+#else
+        file = &fileMac;
+#endif
+
+        if (!file->open(QIODevice::WriteOnly | QIODevice::Text)) {
+            qDebug() << "Failed to open JSON file for writing at path:" << file->fileName();
+            return;
+        }
+
+        file->write(val);
+        file->close();
+
+
+
+        QDateTime startTime = QDateTime::currentDateTime();
+        QDateTime endTime = startTime.addMonths(1);
+        QSqlQuery checkQuery;
+        checkQuery.prepare("SELECT * FROM bookBorrowing WHERE username = :username AND bookBorrowed = :bookTitle");
+        checkQuery.bindValue(":username", m_username);
+        checkQuery.bindValue(":bookTitle", title); // Assuming 'title' is the title of the book being borrowed
+
+        if (checkQuery.exec() && checkQuery.next()) {
+            #ifdef Q_OS_WIN
+            QString filePath = "C:/Users/boyan/Desktop/LSPro/books/" + fileName + ".epub";
+            #else
+            QString filePath = "/Users/boyankiovtorov/Desktop/LSPro/books/" + fileName + ".epub";
+            #endif
+
+            QUrl url = QUrl::fromLocalFile(filePath);
+            QDesktopServices::openUrl(url);
+        }
+        else{
+            QSqlQuery qry;
+
+
+            qry.prepare("INSERT INTO bookBorrowing(username, bookBorrowed, startTime, endTime) "
+                        "VALUES (:username, :bookBorrowed, :startTime, :endTime)");
+            qry.bindValue(":username", m_username);
+            qry.bindValue(":bookBorrowed", title);
+            qry.bindValue(":startTime", startTime.toString(Qt::ISODate));
+            qry.bindValue(":endTime", endTime.toString(Qt::ISODate));
+
+            qDebug() << startTime.toString(Qt::ISODate);
+            qDebug() << endTime.toString(Qt::ISODate);
+
+            if(!qry.exec()) {
+                qDebug() << "Error inserting into bookBorrowing:";
+            } else {
+                qDebug() << "Insertion successful!";
+            }
+        }
+    }
 }
+
 
 
 void MainWindow::accountInit()
@@ -112,11 +177,11 @@ void MainWindow::accountInit()
 
             if(role == "Librarian")
             {
-                ui->stackedWidget->setCurrentIndex(1);
+                ui->role_LA->setText("Librarian");
             }
             else
             {
-                ui->stackedWidget->setCurrentIndex(0);
+                ui->role_LA->setText("Reader");
 
             }
         }
@@ -144,33 +209,7 @@ void MainWindow::on_search_LE_returnPressed()
 
 void MainWindow::searchBook(QString info)
 {
-    QByteArray val;
-    QFile fileWindows(QDir::toNativeSeparators("C:/Users/boyan/Desktop/LSPro/books.json"));
-    QFile fileMac(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/books.json"));
-
-    QFile *file;
-#ifdef Q_OS_WIN
-    file = &fileWindows;
-#else
-    file = &fileMac;
-#endif
-
-    if (!file->exists()) {
-        qDebug() << "JSON file does not exist at path:" << file->fileName();
-        return;
-    }
-    if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Failed to open JSON file at path:" << file->fileName();
-        return;
-    } else {
-        val = file->readAll();
-        file->close();
-    }
-
-    // Parse JSON data
-    QJsonDocument document = QJsonDocument::fromJson(val);
-    QJsonObject object = document.object();
-
+    QJsonObject object = openJSONDoc();
     bool matchesFound = false;
     QJsonArray matchingBooks;
 
@@ -203,10 +242,6 @@ void MainWindow::searchBook(QString info)
             QString language = bookObject["Language"].toString();
             double length = bookObject["Length"].toDouble();
             double rating = bookObject["Rating"].toDouble();
-
-            // Print out the details for each match
-            qDebug() << "Match found:";
-            qDebug() << fileName;
 
                 QWidget *lessonItemWidget = new QWidget; // Create a widget for each lesson
             lessonItemWidget->setFixedSize(890,220);
@@ -252,10 +287,12 @@ void MainWindow::searchBook(QString info)
                 QPushButton* readNow = new QPushButton("Read Now!", lessonItemWidget);
                 readNow->setGeometry(640,150,111,41);
                 readNow->setStyleSheet("background-color:#2254F5;font: 700 12pt ""Segoe UI"";color:white;border:0px;border-radius:10px;");
+                connect(readNow, &QPushButton::clicked, this, [=]() {getBookInfo(title);on_readNow_PB_clicked();});
 
                 QPushButton* readMore = new QPushButton("Read More!", lessonItemWidget);
                 readMore->setGeometry(770,150,111,41);
                 readMore->setStyleSheet("background-color:white;font: 700 12pt ""Segoe UI"";color:black;border: 0px;border-radius:10px;");
+                connect(readMore, &QPushButton::clicked, this, [=]() {getBookInfo(title);on_readMore_PB_clicked();});
 
                 layout->addWidget(lessonItemWidget); // Add the lesson widget to the layout
 
@@ -275,3 +312,139 @@ void MainWindow::on_home_PB_clicked()
     ui->stackedWidget_3->setCurrentIndex(0);
 }
 
+
+
+void MainWindow::on_search_LE_2_returnPressed()
+{
+    on_search_LE_returnPressed();
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_borrowedBooks_PB_clicked()
+{
+     showBorrowedBooks();
+}
+
+void MainWindow::showBorrowedBooks()
+{
+    QJsonObject object = openJSONDoc();
+    bookTitles.clear();
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM bookBorrowing WHERE username = :username");
+    qry.bindValue(":username", m_username);
+
+    if (!qry.exec()) {
+        qDebug() << "Error executing query:";
+        return;
+    }
+    while(qry.next())
+    {
+        bookTitles.push_back(qry.value("bookBorrowed").toString());
+    }
+
+    QWidget* booksWidget = new QWidget(ui->borrowedBooks_WG); // Create a new widget to hold all the lessons
+    QVBoxLayout *layout = new QVBoxLayout(booksWidget); // Create a vertical layout for the widget
+    layout->setAlignment(Qt::AlignTop);
+
+    for (const QString& bookTitle : bookTitles) {
+        const QJsonObject bookObject = object[bookTitle].toObject();
+        QString author = bookObject["Author"].toString();
+        QString title = bookObject["Title"].toString();
+        QString fileName = bookObject["filename"].toString();
+        QString genre = bookObject["Genre"].toString();
+        QString releaseYear = bookObject["Year"].toString();
+        QString releaseDate = bookObject["Date"].toString();
+        QString language = bookObject["Language"].toString();
+        double length = bookObject["Length"].toDouble();
+        double rating = bookObject["Rating"].toDouble();
+
+        QWidget *borrowedBookWidget = new QWidget; // Create a widget for each lesson
+        borrowedBookWidget->setFixedSize(890,220);
+
+        QLabel *bookCover = new QLabel(borrowedBookWidget);
+        bookCover->setObjectName(title + "heading_LA"); // Set object name
+        QString style = "image: url(:/Resources/Images/books/" + fileName + ".png); border: 0px;";
+        bookCover->setStyleSheet(style);
+        qDebug() << style;
+        bookCover->setGeometry(20, 0, 140, 210);
+
+        QLabel *heading = new QLabel(title, borrowedBookWidget);
+        heading->setObjectName(title + "_LA"); // Set object name
+        heading->setStyleSheet("font: 30pt ""Apple Braille""; border: 0px;");
+        heading->setGeometry(190, 20, 670, 30);
+
+        QLabel *authorLA = new QLabel(author, borrowedBookWidget);
+        authorLA->setObjectName(author + "_LA"); // Set object name
+        authorLA->setStyleSheet("font: 20pt ""Apple Braille""; border: 0px;");
+        authorLA->setGeometry(200, 70, 330, 40);
+
+        QLabel *ratingLA = new QLabel(borrowedBookWidget);
+        ratingLA->setText("Rating: " + QString::number(rating));
+        ratingLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+        ratingLA->setGeometry(190, 110, 111, 21);
+
+        QLabel *genreLA = new QLabel(borrowedBookWidget);
+        genreLA->setText("Genre: " + genre);
+        genreLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+        genreLA->setGeometry(190, 170, 380, 21);
+
+        QLabel *dateLA = new QLabel(borrowedBookWidget);
+        dateLA->setText(releaseDate + " " + releaseYear);
+        dateLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+        dateLA->setGeometry(750, 10, 200, 16);
+
+        QLabel *lengthLA = new QLabel(borrowedBookWidget);
+        lengthLA->setText(QString::number(length) + " " + "pages");
+        lengthLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+        lengthLA->setGeometry(750, 35, 100, 16);
+
+        QPushButton* readNow = new QPushButton("Continue reading", borrowedBookWidget);
+        readNow->setGeometry(640,150,111,41);
+        readNow->setStyleSheet("background-color:#2254F5;font: 700 12pt ""Segoe UI"";color:white;border:0px;border-radius:10px;");
+        connect(readNow, &QPushButton::clicked, this, [=]() {getBookInfo(title);on_readNow_PB_clicked();});
+
+        QPushButton* readMore = new QPushButton("Return book", borrowedBookWidget);
+        readMore->setGeometry(770,150,111,41);
+        readMore->setStyleSheet("background-color:white;font: 700 12pt ""Segoe UI"";color:black;border: 0px;border-radius:10px;");
+        connect(readMore, &QPushButton::clicked, this, [=]() {getBookInfo(title);on_readMore_PB_clicked();});
+
+        layout->addWidget(borrowedBookWidget); // Add the lesson widget to the layout
+    }
+
+    ui->scrollArea_2->setWidget(booksWidget); // Set the container widget with all borrowed books as the scroll area widget
+}
+
+void MainWindow::returnBook()
+{
+
+}
+
+QJsonObject MainWindow::openJSONDoc()
+{
+    QByteArray val;
+    QFile fileWindows(QDir::toNativeSeparators("C:/Users/boyan/Desktop/LSPro/books.json"));
+    QFile fileMac(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/LSPro/books.json"));
+
+    QFile *file;
+#ifdef Q_OS_WIN
+    file = &fileWindows;
+#else
+    file = &fileMac;
+#endif
+
+    if (!file->exists()) {
+        qDebug() << "JSON file does not exist at path:" << file->fileName();
+    }
+    if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open JSON file at path:" << file->fileName();
+    } else {
+        val = file->readAll();
+        file->close();
+    }
+
+    // Parse JSON data
+    QJsonDocument document = QJsonDocument::fromJson(val);
+    QJsonObject object = document.object();
+
+    return object;
+}

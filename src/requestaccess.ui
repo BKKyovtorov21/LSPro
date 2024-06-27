@@ -124,7 +124,7 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>Insight</string>
+     <string>LMSPro</string>
     </property>
    </widget>
    <widget class="QLabel" name="request_LA">
@@ -166,7 +166,7 @@ color:white;
 </string>
     </property>
     <property name="text">
-     <string>Principal</string>
+     <string>Librarian</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="teacher_CB">
@@ -183,41 +183,7 @@ color:white;
 </string>
     </property>
     <property name="text">
-     <string>Teacher</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="sTeacher_CB">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>210</y>
-      <width>101</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QCheckBox{color:black;}
-</string>
-    </property>
-    <property name="text">
-     <string>Sub-teacher</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="student_CB">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>210</y>
-      <width>101</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QCheckBox{color:black;}
-</string>
-    </property>
-    <property name="text">
-     <string>Student</string>
+     <string>Boss</string>
     </property>
    </widget>
    <widget class="QWidget" name="widget_2" native="true">
