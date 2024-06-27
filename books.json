@@ -1,21 +1,18 @@
 {
-  "The Psychology of Money":
-  {
+  "The Psychology of Money": {
     "Author": "Morgan Housel",
     "Title": "The Psychology of Money",
     "Description": "The Psychology of Money is a collection of short stories exploring the strange ways people think about money. The author presents related biases, flaws, behaviors, and attitudes that affect one's financial outcomes and shows how one's psychology can work for and against them.",
     "Rating": 4.0,
     "filename": "thepsychologyofmoney",
     "Genre": "Business & Personal Finance",
-    "Year": 2020,
+    "Year": "2020",
     "Date": "8 September",
     "Language": "EN",
     "Length": 153,
     "trackID": "01"
-    
   },
-  "How innovation works":
-  {
+  "How Innovation Works": {
     "Author": "Matt Ridley",
     "Title": "How Innovation Works",
     "Description": "How Innovation Works by Matt Ridley is a fascinating read that explores the history of innovation and dispels commonly held beliefs about how it happens. Ridley argues that innovation is a collaborative effort that arises from trial and error, and the ability to share and improve upon ideas.",
@@ -27,5 +24,122 @@
     "Language": "EN",
     "Length": 250,
     "trackID": "02"
+  },
+  "Atomic Habits": {
+    "Author": "James Clear",
+    "Title": "Atomic Habits",
+    "Description": "Atomic Habits provides a comprehensive guide on how tiny changes can yield remarkable results. James Clear explains the science behind habit formation and offers practical advice for building good habits and breaking bad ones.",
+    "Rating": 4.8,
+    "filename": "atomichabits",
+    "Genre": "Self-help",
+    "Year": 2018,
+    "Date": "16 October",
+    "Language": "EN",
+    "Length": 320,
+    "trackID": "03"
+  },
+  "Sapiens": {
+    "Author": "Yuval Noah Harari",
+    "Title": "Sapiens: A Brief History of Humankind",
+    "Description": "Sapiens explores the history of humanity from the emergence of archaic human species in the Stone Age up to the present, focusing on Homo sapiens. Harari delves into the cognitive, agricultural, and scientific revolutions that shaped human societies.",
+    "Rating": 4.6,
+    "filename": "sapiens",
+    "Genre": "History",
+    "Year": 2011,
+    "Date": "4 September",
+    "Language": "EN",
+    "Length": 443,
+    "trackID": "04"
+  },
+  "Educated": {
+    "Author": "Tara Westover",
+    "Title": "Educated",
+    "Description": "Educated is a memoir by Tara Westover, recounting her experiences growing up in a strict and abusive household in rural Idaho and her journey to self-education, which ultimately led her to earn a PhD from Cambridge University.",
+    "Rating": 4.7,
+    "filename": "educated",
+    "Genre": "Memoir",
+    "Year": 2018,
+    "Date": "20 February",
+    "Language": "EN",
+    "Length": 334,
+    "trackID": "05"
+  },
+  "The Lean Startup": {
+    "Author": "Eric Ries",
+    "Title": "The Lean Startup",
+    "Description": "The Lean Startup is a methodology for developing businesses and products that aims to shorten product development cycles and rapidly discover if a proposed business model is viable. This is achieved by adopting a combination of business-hypothesis-driven experimentation, iterative product releases, and validated learning.",
+    "Rating": 4.3,
+    "filename": "theleanstartup",
+    "Genre": "Business",
+    "Year": 2011,
+    "Date": "13 September",
+    "Language": "EN",
+    "Length": 336,
+    "trackID": "06"
+  },
+  "Thinking, Fast and Slow": {
+    "Author": "Daniel Kahneman",
+    "Title": "Thinking, Fast and Slow",
+    "Description": "Thinking, Fast and Slow by Daniel Kahneman is a groundbreaking tour of the mind that explains the two systems that drive the way we think. System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical.",
+    "Rating": 4.5,
+    "filename": "thinkingfastandslow",
+    "Genre": "Psychology",
+    "Year": 2011,
+    "Date": "25 October",
+    "Language": "EN",
+    "Length": 499,
+    "trackID": "07"
+  },
+  "The Subtle Art of Not Giving a F*ck": {
+    "Author": "Mark Manson",
+    "Title": "The Subtle Art of Not Giving a F*ck",
+    "Description": "The Subtle Art of Not Giving a F*ck is a self-help book by Mark Manson. It argues that life's struggles give it meaning and that the key to being happier is to focus on what's truly important and let go of things that don't matter.",
+    "Rating": 4.3,
+    "filename": "thesubtleartofnotgivingaf",
+    "Genre": "Self-help",
+    "Year": 2016,
+    "Date": "13 September",
+    "Language": "EN",
+    "Length": 224,
+    "trackID": "08"
+  },
+  "Principles: Life and Work": {
+    "Author": "Ray Dalio",
+    "Title": "Principles: Life and Work",
+    "Description": "In Principles, Ray Dalio shares the unconventional principles that he's developed, refined, and used over the past forty years to create unique results in both life and business—and which any person or organization can adopt to help achieve their goals.",
+    "Rating": 4.4,
+    "filename": "principleslifeandwork",
+    "Genre": "Business",
+    "Year": 2017,
+    "Date": "19 September",
+    "Language": "EN",
+    "Length": 592,
+    "trackID": "09"
+  },
+  "Becoming": {
+    "Author": "Michelle Obama",
+    "Title": "Becoming",
+    "Description": "Becoming is the memoir of former United States First Lady Michelle Obama. Described by the author as a deeply personal experience, the book talks about her roots and how she found her voice, as well as her time in the White House, her public health campaign, and her role as a mother.",
+    "Rating": 4.6,
+    "filename": "becoming",
+    "Genre": "Memoir",
+    "Year": 2018,
+    "Date": "13 November",
+    "Language": "EN",
+    "Length": 448,
+    "trackID": "10"
+  },
+  "Grit: The Power of Passion and Perseverance": {
+    "Author": "Angela Duckworth",
+    "Title": "Grit: The Power of Passion and Perseverance",
+    "Description": "In Grit, psychologist Angela Duckworth shows anyone striving to succeed—be it parents, students, educators, athletes, or business people—that the secret to outstanding achievement is not talent but a special blend of passion and persistence she calls 'grit.'",
+    "Rating": 4.4,
+    "filename": "grit",
+    "Genre": "Self-help",
+    "Year": 2016,
+    "Date": "3 May",
+    "Language": "EN",
+    "Length": 352,
+    "trackID": "11"
   }
 }

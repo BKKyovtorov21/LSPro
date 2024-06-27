@@ -30,6 +30,8 @@ private slots:
     void on_Back_PB_clicked();
     void on_search_LE_returnPressed();
 
+    void on_home_PB_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -193,6 +193,22 @@ border-radius:10px;
        <string>Reader</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="home_PB">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>1</y>
+        <width>171</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QStackedWidget" name="stackedWidget_2">
      <property name="enabled">
@@ -212,7 +228,7 @@ background-color: rgb(255, 255, 255);
 border:1px solid rgba(184,184,184,50);</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_7">
       <widget class="QLabel" name="bookCoverInfo_LA">
@@ -274,7 +290,7 @@ qproperty-alignment: 'AlignTop';</string>
         <string>Chriss Vozz &amp; Tahl Raz</string>
        </property>
       </widget>
-      <widget class="QLabel" name="bookDesc_LA_3">
+      <widget class="QLabel" name="bookDesc_LA_9">
        <property name="geometry">
         <rect>
          <x>150</x>
@@ -441,7 +457,7 @@ border: 1px solid rgb(36, 36, 36);</string>
         <string>Back</string>
        </property>
       </widget>
-      <widget class="QLabel" name="bookGenre">
+      <widget class="QLabel" name="bookGenre_LA">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -510,7 +526,7 @@ border: 1px solid rgb(36, 36, 36);</string>
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="bookLanguage">
+      <widget class="QLabel" name="bookLanguage_LA">
        <property name="geometry">
         <rect>
          <x>270</x>
@@ -923,7 +939,7 @@ color:black;
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book6_PB_5">
+       <widget class="QPushButton" name="book6_PB">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -942,7 +958,7 @@ color:black;
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book7_PB_5">
+       <widget class="QPushButton" name="book7_PB">
         <property name="geometry">
          <rect>
           <x>180</x>
@@ -958,7 +974,7 @@ color:black;
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book8_PB_5">
+       <widget class="QPushButton" name="book8_PB">
         <property name="geometry">
          <rect>
           <x>350</x>
@@ -974,7 +990,7 @@ color:black;
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book9_PB_5">
+       <widget class="QPushButton" name="book9_PB">
         <property name="geometry">
          <rect>
           <x>520</x>
@@ -990,7 +1006,7 @@ color:black;
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book10_PB_5">
+       <widget class="QPushButton" name="book10_PB">
         <property name="geometry">
          <rect>
           <x>680</x>
@@ -1056,7 +1072,7 @@ border-radius:10px;</string>
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="bookCover_LA_5">
+       <widget class="QLabel" name="bookCoverHP_LA">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -1072,7 +1088,7 @@ border-radius:10px;</string>
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="bookName_LA_5">
+       <widget class="QLabel" name="bookNameHP_LA">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1089,7 +1105,7 @@ color:white;</string>
          <string>Company of One</string>
         </property>
        </widget>
-       <widget class="QLabel" name="bookAuthour_LA_5">
+       <widget class="QLabel" name="bookAuthourHP_LA">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1186,7 +1202,7 @@ color:#8092C2;</string>
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="bookRating_LA_5">
+       <widget class="QLabel" name="bookRatingHP_LA">
         <property name="geometry">
          <rect>
           <x>170</x>
@@ -1203,7 +1219,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
          <string>4.4</string>
         </property>
        </widget>
-       <widget class="QLabel" name="bookDesc_LA_8">
+       <widget class="QLabel" name="bookDescHP_LA">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1230,7 +1246,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="readNow_PB_4">
+       <widget class="QPushButton" name="readNow_PB">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1263,7 +1279,7 @@ color:white;
          <number>106</number>
         </property>
        </widget>
-       <widget class="QPushButton" name="readMore_PB_4">
+       <widget class="QPushButton" name="readMore_PB">
         <property name="geometry">
          <rect>
           <x>110</x>
@@ -1591,7 +1607,7 @@ border-image: url(:/Resources/Images/books/theleanstartup.png);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">border-radius: 0px;
-border-image: url(:/Resources/Images/books/atomichabits.png);</string>
+image: url(:/Resources/Images/books/atomichabits.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -1613,7 +1629,7 @@ border-image: url(:/Resources/Images/books/atomichabits.png);</string>
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book5_PB_5">
+       <widget class="QPushButton" name="book5_PB">
         <property name="geometry">
          <rect>
           <x>680</x>
@@ -1629,7 +1645,7 @@ border-image: url(:/Resources/Images/books/atomichabits.png);</string>
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book4_PB_5">
+       <widget class="QPushButton" name="book4_PB">
         <property name="geometry">
          <rect>
           <x>530</x>
@@ -1645,7 +1661,7 @@ border-image: url(:/Resources/Images/books/atomichabits.png);</string>
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book3_PB_5">
+       <widget class="QPushButton" name="book3_PB">
         <property name="geometry">
          <rect>
           <x>370</x>
@@ -1661,7 +1677,7 @@ border-image: url(:/Resources/Images/books/atomichabits.png);</string>
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book2_PB_5">
+       <widget class="QPushButton" name="book2_PB">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -1677,7 +1693,7 @@ border-image: url(:/Resources/Images/books/atomichabits.png);</string>
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="book1_PB_5">
+       <widget class="QPushButton" name="book1_PB">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1693,10 +1709,209 @@ border-image: url(:/Resources/Images/books/atomichabits.png);</string>
          <string/>
         </property>
        </widget>
+       <zorder>label_159</zorder>
+       <zorder>label_160</zorder>
+       <zorder>label_161</zorder>
+       <zorder>label_162</zorder>
+       <zorder>label_163</zorder>
+       <zorder>label_164</zorder>
+       <zorder>label_165</zorder>
+       <zorder>label_166</zorder>
+       <zorder>label_167</zorder>
+       <zorder>label_168</zorder>
+       <zorder>label_169</zorder>
+       <zorder>label_171</zorder>
+       <zorder>book5_PB</zorder>
+       <zorder>book4_PB</zorder>
+       <zorder>book3_PB</zorder>
+       <zorder>book2_PB</zorder>
+       <zorder>book1_PB</zorder>
+       <zorder>label_170</zorder>
       </widget>
      </widget>
-     <widget class="QWidget" name="page_4"/>
+     <widget class="QWidget" name="foundBooks">
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>1071</width>
+         <height>611</height>
+        </rect>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1069</width>
+          <height>609</height>
+         </rect>
+        </property>
+        <widget class="QWidget" name="widget_11" native="true">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>891</width>
+           <height>221</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid black;</string>
+         </property>
+         <widget class="QLabel" name="label_8">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>10</y>
+            <width>141</width>
+            <height>191</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_9">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>20</y>
+            <width>671</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>25</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 0px;</string>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_10">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>60</y>
+            <width>331</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Morgan Hausel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_11">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>120</y>
+            <width>111</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Rating: 4.0</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_12">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>170</y>
+            <width>381</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Ganre:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_16">
+          <property name="geometry">
+           <rect>
+            <x>720</x>
+            <y>10</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>2024-12-31</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_17">
+          <property name="geometry">
+           <rect>
+            <x>740</x>
+            <y>60</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton">
+          <property name="geometry">
+           <rect>
+            <x>770</x>
+            <y>150</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:white;
+font: 700 12pt &quot;Segoe UI&quot;;
+color:black;
+border: 0px;
+border-radius:10px;
+</string>
+          </property>
+          <property name="text">
+           <string>Read More</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>640</x>
+            <y>150</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:#2254F5;
+font: 700 12pt &quot;Segoe UI&quot;;
+color:white;
+border:0px;
+border-radius:10px;</string>
+          </property>
+          <property name="text">
+           <string>Read Now!</string>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
     </widget>
+    <zorder>searchBar_QW</zorder>
+    <zorder>widget</zorder>
+    <zorder>stackedWidget_3</zorder>
+    <zorder>stackedWidget_2</zorder>
    </widget>
    <widget class="QWidget" name="page_2">
     <widget class="QWidget" name="widget_10" native="true">

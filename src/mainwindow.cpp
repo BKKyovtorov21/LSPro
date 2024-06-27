@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QSql>
 #include <QSqlQuery>
+#include <QVBoxLayout>
 MainWindow::MainWindow(QString& username, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainWindow)
@@ -63,19 +64,19 @@ void MainWindow::getBookInfo(QString bookName)
 
     QString style = "image: url(:/Resources/Images/books/" + fileName + ".png);";
     ui->bookCoverInfo_LA->setStyleSheet(style);
-    ui->bookCover_LA->setStyleSheet(style);
+    ui->bookCoverHP_LA->setStyleSheet(style);
     ui->bookCover_LA_2->setStyleSheet(style);
     ui->bookTitle_LA->setText(title);
     ui->bookAuthor_LA->setText(author);
     ui->bookDescription_LA->setText(description);
-    ui->bookAuthour_LA->setText(author);
-    ui->bookRating_LA->setText(QString::number(rating));
-    ui->bookDesc_LA->setText(description);
-    ui->bookName_LA->setText(title);
-    ui->bookGenre->setText(genre);
+    ui->bookAuthourHP_LA->setText(author);
+    ui->bookRatingHP_LA->setText(QString::number(rating));
+    ui->bookDescHP_LA->setText(description);
+    ui->bookNameHP_LA->setText(title);
+    ui->bookGenre_LA->setText(genre);
     ui->bookReleaseYear_LA->setText(QString::number(releaseYear));
     ui->bookReleaseDate_LA->setText(releaseDate);
-    ui->bookLanguage->setText(language);
+    ui->bookLanguage_LA->setText(language);
     ui->bookPages_LA->setText(QString::number(length));
 
 }
@@ -187,14 +188,17 @@ void MainWindow::searchBook(QString info)
     }
 
     if (matchesFound) {
+        ui->stackedWidget_3->setCurrentIndex(1);
+        QWidget* lessonWidget = new QWidget(ui->foundBooks); // Create a new widget to hold all the lessons
+        QVBoxLayout *layout = new QVBoxLayout(lessonWidget); // Create a vertical layout for the widget
+        layout->setAlignment(Qt::AlignTop);
         for (const QJsonValue &value : matchingBooks) {
             QJsonObject bookObject = value.toObject();
             QString author = bookObject["Author"].toString();
             QString title = bookObject["Title"].toString();
-            QString description = bookObject["Description"].toString();
             QString fileName = bookObject["filename"].toString();
             QString genre = bookObject["Genre"].toString();
-            double releaseYear = bookObject["Year"].toDouble();
+            QString releaseYear = bookObject["Year"].toString();
             QString releaseDate = bookObject["Date"].toString();
             QString language = bookObject["Language"].toString();
             double length = bookObject["Length"].toDouble();
@@ -202,17 +206,61 @@ void MainWindow::searchBook(QString info)
 
             // Print out the details for each match
             qDebug() << "Match found:";
-            qDebug() << "Author:" << author;
-            qDebug() << "Title:" << title;
-            qDebug() << "Description:" << description;
-            qDebug() << "Filename:" << fileName;
-            qDebug() << "Genre:" << genre;
-            qDebug() << "Release Year:" << releaseYear;
-            qDebug() << "Release Date:" << releaseDate;
-            qDebug() << "Language:" << language;
-            qDebug() << "Length:" << length;
-            qDebug() << "Rating:" << rating;
+            qDebug() << fileName;
 
+                QWidget *lessonItemWidget = new QWidget; // Create a widget for each lesson
+            lessonItemWidget->setFixedSize(890,220);
+//                lessonItemWidget->setStyleSheet("border");
+
+                QLabel *bookCover = new QLabel(lessonItemWidget);
+                bookCover->setObjectName(title + "heading_LA"); // Set object name
+                QString style = "image: url(:/Resources/Images/books/" + fileName + ".png); border: 0px;";
+                bookCover->setStyleSheet(style);
+                qDebug() << style;
+                bookCover->setGeometry(20, 0, 140, 210);
+
+                QLabel *heading = new QLabel(title, lessonItemWidget);
+                heading->setObjectName(title + "_LA"); // Set object name
+                heading->setStyleSheet("font: 30pt ""Apple Braille""; border: 0px;");
+                heading->setGeometry(190, 20, 670, 30);
+
+                QLabel *authorLA = new QLabel(author, lessonItemWidget);
+                authorLA->setObjectName(author + "_LA"); // Set object name
+                authorLA->setStyleSheet("font: 20pt ""Apple Braille""; border: 0px;");
+                authorLA->setGeometry(200, 70, 330, 40);
+
+                QLabel *ratingLA = new QLabel(lessonItemWidget);
+                ratingLA->setText("Rating: " + QString::number(rating));
+                ratingLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+                ratingLA->setGeometry(190, 110, 111, 21);
+
+                QLabel *genreLA = new QLabel(lessonItemWidget);
+                genreLA->setText("Genre: " + genre);
+                genreLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+                genreLA->setGeometry(190, 170, 380, 21);
+
+                QLabel *dateLA = new QLabel(lessonItemWidget);
+                dateLA->setText(releaseDate + " " + releaseYear);
+                dateLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+                dateLA->setGeometry(750, 10, 150, 16);
+
+                QLabel *lengthLA = new QLabel(lessonItemWidget);
+                lengthLA->setText(QString::number(length) + " " + "pages");
+                lengthLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+                lengthLA->setGeometry(750, 35, 100, 16);
+
+                QPushButton* readNow = new QPushButton("Read Now!", lessonItemWidget);
+                readNow->setGeometry(640,150,111,41);
+                readNow->setStyleSheet("background-color:#2254F5;font: 700 12pt ""Segoe UI"";color:white;border:0px;border-radius:10px;");
+
+                QPushButton* readMore = new QPushButton("Read More!", lessonItemWidget);
+                readMore->setGeometry(770,150,111,41);
+                readMore->setStyleSheet("background-color:white;font: 700 12pt ""Segoe UI"";color:black;border: 0px;border-radius:10px;");
+
+                layout->addWidget(lessonItemWidget); // Add the lesson widget to the layout
+
+
+            ui->scrollArea->setWidget(lessonWidget); // Set the widget containing all lessons as the content of the scroll area
             // Optionally, you can update the UI here to display the matches.
             // For example, you could add the matches to a list widget.
         }
@@ -221,3 +269,9 @@ void MainWindow::searchBook(QString info)
         // Optionally clear the UI or display a message to the user
     }
 }
+
+void MainWindow::on_home_PB_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(0);
+}
+
