@@ -11,6 +11,7 @@
 #include <QSqlQuery>
 #include <QVBoxLayout>
 #include <QMessageBox>
+#include <QSqlError>
 MainWindow::MainWindow(QString& username, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainWindow)
@@ -327,6 +328,7 @@ void MainWindow::on_borrowedBooks_PB_clicked()
 
 void MainWindow::showBorrowedBooks()
 {
+    ui->stackedWidget_3->setCurrentIndex(2);
     QJsonObject object = openJSONDoc();
     bookTitles.clear();
     QSqlQuery qry;
@@ -406,7 +408,7 @@ void MainWindow::showBorrowedBooks()
         QPushButton* readMore = new QPushButton("Return book", borrowedBookWidget);
         readMore->setGeometry(770,150,111,41);
         readMore->setStyleSheet("background-color:white;font: 700 12pt ""Segoe UI"";color:black;border: 0px;border-radius:10px;");
-        connect(readMore, &QPushButton::clicked, this, [=]() {getBookInfo(title);on_readMore_PB_clicked();});
+        connect(readMore, &QPushButton::clicked, this, [=]() {getBookInfo(title); returnBook(title);});
 
         layout->addWidget(borrowedBookWidget); // Add the lesson widget to the layout
     }
@@ -414,10 +416,43 @@ void MainWindow::showBorrowedBooks()
     ui->scrollArea_2->setWidget(booksWidget); // Set the container widget with all borrowed books as the scroll area widget
 }
 
-void MainWindow::returnBook()
+void MainWindow::returnBook(QString title)
 {
+    QJsonObject object = openJSONDoc();
+    const auto settingsObject = object[title].toObject();
 
+    // Extract database connection parameters from JSON
+    QString author = settingsObject["Author"].toString();
+
+    QSqlQuery qry;
+    QDateTime returnTime = QDateTime::currentDateTime();
+    qry.prepare("INSERT INTO returnedBooks(username, returnedBook, dateOfReturn) "
+                "VALUES(:username, :returnedBook, :dateOfReturn)");
+    qry.bindValue(":username", m_username);
+    qry.bindValue(":returnedBook", title);
+    qry.bindValue(":dateOfReturn", returnTime);
+
+    if(qry.exec())
+    {
+        qry.prepare("DELETE FROM bookBorrowing WHERE username = :username AND bookBorrowed = :bookBorrowed");
+        qry.bindValue(":username", m_username);
+        qry.bindValue(":bookBorrowed", title);
+        if(qry.exec())
+        {
+            QMessageBox::information(this, "Book returned", "You have returned " + title);
+        }
+        else
+        {
+            qDebug() << "error when returning: " << qry.lastError();
+
+        }
+    }
+    else
+    {
+        qDebug() << "error when returning: " << qry.lastError();
+    }
 }
+
 
 QJsonObject MainWindow::openJSONDoc()
 {
@@ -448,3 +483,9 @@ QJsonObject MainWindow::openJSONDoc()
 
     return object;
 }
+
+void MainWindow::on_homepage_PB_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(0);
+}
+
