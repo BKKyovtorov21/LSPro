@@ -53,7 +53,7 @@
     },
     "How Innovation Works": {
         "Author": "Matt Ridley",
-        "Copies": 2,
+        "Copies": 1,
         "Date": "19 May",
         "Description": "How Innovation Works by Matt Ridley is a fascinating read that explores the history of innovation and dispels commonly held beliefs about how it happens. Ridley argues that innovation is a collaborative effort that arises from trial and error, and the ability to share and improve upon ideas.",
         "Genre": "Business & Personal Finance",
@@ -76,8 +76,22 @@
         "Rating": 4.4,
         "Title": "Principles: Life and Work",
         "Year": 2017,
-        "filename": "principleslifeandwork",
+        "filename": "principles",
         "trackID": "09"
+    },
+    "Rich Dad Poor Dad": {
+        "Author": "Robert T. Kiyosaki",
+        "Copies": -2,
+        "Date": "1 April",
+        "Description": "Rich Dad Poor Dad is a book by Robert Kiyosaki that advocates the importance of financial literacy, financial independence, and building wealth through investing in assets, real estate investing, starting and owning businesses, as well as increasing one's financial intelligence.",
+        "Genre": "Personal Finance",
+        "Language": "EN",
+        "Length": 207,
+        "Rating": 4.3,
+        "Title": "Rich Dad Poor Dad",
+        "Year": 1997,
+        "filename": "richdadpoordad",
+        "trackID": "12"
     },
     "Sapiens": {
         "Author": "Yuval Noah Harari",
