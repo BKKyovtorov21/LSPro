@@ -12,7 +12,6 @@
         <file>Images/books/thefactofabody.png</file>
         <file>Images/books/theleanstartup.png</file>
         <file>Images/books/theroom.png</file>
-        <file>Images/books/richdadpoor.png</file>
         <file>Images/books/atomichabits.png</file>
         <file>Images/halfWhiteStar.png</file>
         <file>Images/whteStar.png</file>
@@ -23,5 +22,15 @@
         <file>Images/icons/Home.png</file>
         <file>Images/icons/Info.png</file>
         <file>Images/books/thepsychologyofmoney.png</file>
+        <file>Images/icons/borrow.png</file>
+        <file>Images/icons/reserve.png</file>
+        <file>Images/books/thesubtleartofnotgivingaf.png</file>
+        <file>Images/books/thinkingfastandslow.png</file>
+        <file>Images/books/becoming.png</file>
+        <file>Images/books/educated.png</file>
+        <file>Images/books/grit.png</file>
+        <file>Images/books/principles.png</file>
+        <file>Images/books/sapiens.png</file>
+        <file>Images/books/richdadpoordad.png</file>
     </qresource>
 </RCC>
