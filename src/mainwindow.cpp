@@ -12,6 +12,7 @@
 #include <QVBoxLayout>
 #include <QMessageBox>
 #include <QSqlError>
+#include <QSqlQueryModel>
 MainWindow::MainWindow(QString& username, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainWindow)
@@ -21,6 +22,7 @@ MainWindow::MainWindow(QString& username, QWidget *parent)
     accountInit();
 
     ui->stackedWidget_2->hide();
+
 
 }
 
@@ -120,7 +122,7 @@ void MainWindow::on_readNow_PB_clicked()
 
 
         QDateTime startTime = QDateTime::currentDateTime();
-        QDateTime endTime = startTime.addMonths(1);
+        QDateTime endTime = startTime.addDays(15);
         QSqlQuery checkQuery;
         checkQuery.prepare("SELECT * FROM bookBorrowing WHERE username = :username AND bookBorrowed = :bookTitle");
         checkQuery.bindValue(":username", m_username);
@@ -171,7 +173,6 @@ void MainWindow::accountInit()
     {
         if(qry.next())
         {
-            QString username = qry.value("Username").toString();
             QString firstName = qry.value("First Name").toString();
             QString role = qry.value("Role").toString();
             ui->name_LA->setText(firstName);
@@ -179,10 +180,12 @@ void MainWindow::accountInit()
             if(role == "Librarian")
             {
                 ui->role_LA->setText("Librarian");
+                ui->librarian_GB->show();
             }
             else
             {
                 ui->role_LA->setText("Reader");
+                ui->librarian_GB->hide();
 
             }
         }
@@ -359,9 +362,28 @@ void MainWindow::showBorrowedBooks()
         QString language = bookObject["Language"].toString();
         double length = bookObject["Length"].toDouble();
         double rating = bookObject["Rating"].toDouble();
-
         QWidget *borrowedBookWidget = new QWidget; // Create a widget for each lesson
-        borrowedBookWidget->setFixedSize(890,220);
+        borrowedBookWidget->setFixedSize(1110,220);
+        qry.prepare("SELECT * FROM bookBorrowing WHERE username = :username AND bookBorrowed = :bookBorrowed");
+        qry.bindValue(":username", m_username);
+        qry.bindValue(":bookBorrowed", title);
+        if(qry.exec())
+        {
+            if(qry.next())
+            {
+
+                QLabel *dateLA = new QLabel(borrowedBookWidget);
+                QDate endTime = qry.value("endTime").toDate();
+                dateLA->setText("Book borrowed due: " + endTime.toString("dd-MM-yyyy"));
+                dateLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
+                dateLA->setGeometry(750, 10, 250, 16);
+            }
+            else
+            {
+                qDebug() << qry.lastError();
+            }
+        }
+
 
         QLabel *bookCover = new QLabel(borrowedBookWidget);
         bookCover->setObjectName(title + "heading_LA"); // Set object name
@@ -390,11 +412,6 @@ void MainWindow::showBorrowedBooks()
         genreLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
         genreLA->setGeometry(190, 170, 380, 21);
 
-        QLabel *dateLA = new QLabel(borrowedBookWidget);
-        dateLA->setText(releaseDate + " " + releaseYear);
-        dateLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
-        dateLA->setGeometry(750, 10, 200, 16);
-
         QLabel *lengthLA = new QLabel(borrowedBookWidget);
         lengthLA->setText(QString::number(length) + " " + "pages");
         lengthLA->setStyleSheet("font: 15pt ""Apple Braille""; border: 0px;");
@@ -405,10 +422,15 @@ void MainWindow::showBorrowedBooks()
         readNow->setStyleSheet("background-color:#2254F5;font: 700 12pt ""Segoe UI"";color:white;border:0px;border-radius:10px;");
         connect(readNow, &QPushButton::clicked, this, [=]() {getBookInfo(title);on_readNow_PB_clicked();});
 
-        QPushButton* readMore = new QPushButton("Return book", borrowedBookWidget);
-        readMore->setGeometry(770,150,111,41);
-        readMore->setStyleSheet("background-color:white;font: 700 12pt ""Segoe UI"";color:black;border: 0px;border-radius:10px;");
-        connect(readMore, &QPushButton::clicked, this, [=]() {getBookInfo(title); returnBook(title);});
+        QPushButton* renewBookPB = new QPushButton("Renew book for 10BGN", borrowedBookWidget);
+        renewBookPB->setGeometry(770,150,141,41);
+        renewBookPB->setStyleSheet("background-color:#2254F5;font: 700 12pt ""Segoe UI"";color:white;border:0px;border-radius:10px;");
+        connect(renewBookPB, &QPushButton::clicked, this, [=]() {renewBook(title);});
+
+        QPushButton* returnBookPB = new QPushButton("Return book", borrowedBookWidget);
+        returnBookPB->setGeometry(930,150,111,41);
+        returnBookPB->setStyleSheet("background-color:white;font: 700 12pt ""Segoe UI"";color:black;border: 0px;border-radius:10px;");
+        connect(returnBookPB, &QPushButton::clicked, this, [=]() {getBookInfo(title); returnBook(title);});
 
         layout->addWidget(borrowedBookWidget); // Add the lesson widget to the layout
     }
@@ -487,5 +509,88 @@ QJsonObject MainWindow::openJSONDoc()
 void MainWindow::on_homepage_PB_clicked()
 {
     ui->stackedWidget_3->setCurrentIndex(0);
+}
+
+void MainWindow::renewBook(QString title)
+{
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM bookBorrowing WHERE username = :username AND bookBorrowed = :bookBorrowed");
+    qry.bindValue(":username", m_username);
+    qry.bindValue(":bookBorrowed", title);
+    if(qry.exec())
+    {
+        if(qry.next())
+        {
+            QDate endTime = qry.value("endTime").toDate();
+            QDate newEndtime = endTime.addDays(15);
+            qry.prepare("UPDATE bookBorrowing SET endTime = :newEndtime WHERE username = :username AND bookBorrowed = :bookBorrowed");
+            qry.bindValue(":newEndtime", newEndtime);
+            qry.bindValue(":username", m_username);
+            qry.bindValue(":bookBorrowed", title);
+
+            if(qry.exec())
+            {
+                QMessageBox::information(this, "Book renewed", "You have renewed " + title + " for 15 more days");
+            }
+            else
+            {
+                qDebug() << qry.lastError();
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_borrowedBooksLBR_PB_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(3);
+    QSqlQueryModel* query = new QSqlQueryModel();
+    QString queryString = "SELECT * FROM bookBorrowing";
+    query->setQuery(queryString);
+    ui->bookBorrowing_TV->setModel(query);
+    ui->bookBorrowing_TV->setColumnHidden(0, true);
+    ui->bookBorrowing_TV->setColumnWidth(1, 267);
+    ui->bookBorrowing_TV->setColumnWidth(2, 267);
+    ui->bookBorrowing_TV->setColumnWidth(3, 267);
+    ui->bookBorrowing_TV->setColumnWidth(4, 267);
+}
+
+
+void MainWindow::on_returnedBooks_PB_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(4);
+    QSqlQueryModel* query = new QSqlQueryModel();
+    QString queryString = "SELECT * FROM returnedBooks";
+    query->setQuery(queryString);
+    ui->returnedBooks_TV->setModel(query);
+    ui->returnedBooks_TV->setColumnHidden(0, true);
+    ui->returnedBooks_TV->setColumnWidth(1, 357);
+    ui->returnedBooks_TV->setColumnWidth(2, 357);
+    ui->returnedBooks_TV->setColumnWidth(3, 357);
+}
+
+
+void MainWindow::on_book2_PB_clicked()
+{
+    getBookInfo("How Innovation Works");
+}
+
+
+void MainWindow::on_book10_PB_clicked()
+{
+    getBookInfo("Rich dad poor dad");
+
+}
+
+void MainWindow::on_book5_PB_clicked()
+{
+    getBookInfo("Atomic Habits");
+
+}
+
+
+void MainWindow::on_RedaNow_PB_clicked()
+{
+    on_readNow_PB_clicked();
 }
 

@@ -3,6 +3,8 @@
 #include <QWidget>
 #include <QFile>
 #include <QDebug>
+#include <QFrame>
+#include <QLabel>
 namespace Ui {
 class MainWindow;
 }
@@ -38,6 +40,18 @@ private slots:
 
     void on_homepage_PB_clicked();
 
+    void on_borrowedBooksLBR_PB_clicked();
+
+    void on_returnedBooks_PB_clicked();
+
+    void on_book2_PB_clicked();
+
+    void on_book10_PB_clicked();
+
+    void on_book5_PB_clicked();
+
+    void on_RedaNow_PB_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -61,10 +75,9 @@ private:
     void searchBook(QString info);
     void showBorrowedBooks();
     void returnBook(QString title);
-
+    void renewBook(QString title);
+    void Updatepfp();
+    void SetCircularMaskAndStyle(QFrame* frame, QLabel* imageLabel, const QPixmap& userPixmap);
     QJsonObject openJSONDoc();
-
-    QWidget** borrowedBookRef;
-
     std::vector<QString> bookTitles;
 };

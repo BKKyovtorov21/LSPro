@@ -77,22 +77,6 @@ font: 12pt &quot;Segoe UI&quot;;</string>
        <string>Search for your favoutirte books</string>
       </property>
      </widget>
-     <widget class="QLabel" name="pfp_LA">
-      <property name="geometry">
-       <rect>
-        <x>910</x>
-        <y>10</y>
-        <width>51</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border: 1px solid black;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QLabel" name="name_LA">
       <property name="geometry">
        <rect>
@@ -260,17 +244,17 @@ background-color:transparent;</string>
        <string>Homepage</string>
       </property>
      </widget>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="librarian_GB">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>460</y>
-        <width>151</width>
-        <height>171</height>
+        <x>0</x>
+        <y>500</y>
+        <width>181</width>
+        <height>101</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:1px solid black;</string>
+       <string notr="true"/>
       </property>
       <property name="title">
        <string/>
@@ -310,6 +294,124 @@ image: url(:/Resources/Images/icons/Info.png);</string>
         <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="label_72">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>50</y>
+         <width>131</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Borrowed books</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_73">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>46</y>
+         <width>41</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;
+image: url(:/Resources/Images/icons/Info.png);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_78">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>80</y>
+         <width>131</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Returned books</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_79">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>76</y>
+         <width>41</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;
+image: url(:/Resources/Images/icons/Info.png);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="libraryInfo_PB_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>141</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="borrowedBooksLBR_PB">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>151</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="returnedBooks_PB">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>151</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_70">
       <property name="geometry">
@@ -321,8 +423,8 @@ image: url(:/Resources/Images/icons/Info.png);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">image: url(:/Resources/Images/icons/Home.png);
-background-color:transparent;</string>
+       <string notr="true">background-color:transparent;
+image: url(:/Resources/Images/icons/borrow.png);</string>
       </property>
       <property name="text">
        <string/>
@@ -378,6 +480,55 @@ background-color:transparent;</string>
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="label_80">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>185</y>
+        <width>121</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Reserved books</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_81">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>180</y>
+        <width>45</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;
+image: url(:/Resources/Images/icons/reserve.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label</zorder>
+     <zorder>label_2</zorder>
+     <zorder>role_LA</zorder>
+     <zorder>home_PB</zorder>
+     <zorder>libraryInfo_PB</zorder>
+     <zorder>label_67</zorder>
+     <zorder>label_53</zorder>
+     <zorder>librarian_GB</zorder>
+     <zorder>label_70</zorder>
+     <zorder>label_71</zorder>
+     <zorder>homepage_PB</zorder>
+     <zorder>label_80</zorder>
+     <zorder>label_81</zorder>
+     <zorder>borrowedBooks_PB</zorder>
     </widget>
     <widget class="QStackedWidget" name="stackedWidget_2">
      <property name="enabled">
@@ -2099,6 +2250,30 @@ border-radius:10px;</string>
          </rect>
         </property>
        </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_3">
+      <widget class="QTableView" name="bookBorrowing_TV">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>1071</width>
+         <height>611</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_4">
+      <widget class="QTableView" name="returnedBooks_TV">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>1071</width>
+         <height>601</height>
+        </rect>
+       </property>
       </widget>
      </widget>
     </widget>
